@@ -3,14 +3,15 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
       resources :customers do 
-        resources :orders, only:[:index, :create]
+        get "orders", to: "orders#index"
+        post "orders", to: "orders#create"
       end
       resources :products, only: [:index, :show]
       post "orders/:id/ship", to: "orders#ship"
       resources :orders, only: [:index, :show] do
-        resources :products, [:index, :create]
+        get "products", to: "products#index"
+        post "products", to: "products#create"
       end
-      
     end
   end
 end
